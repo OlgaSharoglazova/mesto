@@ -1,7 +1,5 @@
 .element__item {
-  margin-left: 21px;
-  margin-right: 15px;
-  margin-bottom: 31px;
+  margin: 25px 15px 31px 21px;
   display: flex;
   align-items: center;
   justify-content: space-between;
