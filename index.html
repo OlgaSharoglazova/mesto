@@ -80,7 +80,7 @@
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
+  <div class="popup popup-edit">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="form">
@@ -88,10 +88,10 @@
         <input type="text" class="popup__input popup__input_type_job" placeholder="О себе" name="job">
         <button class="button popup__button" type="submit">Сохранить</button>
       </form>
-      <button class="popup__close" type="button" aria-label="закрыть"></button>
+      <button class="popup__close popup-edit__close" type="button" aria-label="закрыть"></button>
     </div>
   </div>
-  <div class="popup-add">
+  <div class="popup popup-add">
     <div class="popup-add__container">
       <h2 class="popup-add__title">Новое место</h2>
       <form class="popup-add__form" name="form">
@@ -99,14 +99,14 @@
         <input type="text" class="popup-add__input popup__input_type_link" placeholder="Ссылка на картинку" name="link">
         <button class="button popup-add__button" type="submit">Создать</button>
       </form>
-      <button class="popup-add__close" type="button" aria-label="закрыть"></button>
+      <button class="popup__close popup-add__close" type="button" aria-label="закрыть"></button>
     </div>
   </div>
-  <div class="popup-img">
+  <div class="popup popup-img">
     <div class="popup-img__container">
       <img class="popup-img__photo" src="./images/clay-banks-hwLAI5lRhdM-unsplash.jpg">
       <h2 class="popup-img__title">Новое место</h2>
-      <button class="popup-img__close" type="button" aria-label="закрыть"></button>
+      <button class="popup__close popup-img__close" type="button" aria-label="закрыть"></button>
     </div>
   </div>
   <script src="./script/index.js"></script>
