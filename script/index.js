@@ -11,8 +11,8 @@ const popupAddClose = popupAdd.querySelector('.popup-add__close');
 const popupImgClose = popupImg.querySelector('.popup-img__close');
 
 const formElement = document.querySelector('.popup__form');
-const nameInput = formElement.querySelector('.popup__input_type_name');
-const jobInput = formElement.querySelector('.popup__input_type_job');
+const nameInput = formElement.querySelector('.popup__input-name');
+const jobInput = formElement.querySelector('.popup__input-job');
 
 
 
@@ -151,8 +151,8 @@ formAddCard.addEventListener('submit', addCard);
 function addCard (evt) {
   evt.preventDefault();
   const formAddCard = evt.target;
-  const name = formAddCard.querySelector('.popup__input_type_title').value;
-  const link = formAddCard.querySelector('.popup__input_type_link').value;
+  const name = formAddCard.querySelector('.popup__input-title').value;
+  const link = formAddCard.querySelector('.popup__input-link').value;
   const newCard = {name, link};
   createCard(newCard);
   closePopup(popupAdd);
