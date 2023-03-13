@@ -45,8 +45,8 @@ buttonAdd.addEventListener('click', function() {
 
 
 //функция закрытия попапов
-function closePopup(pop) {
-  pop.classList.remove('popup_opened');
+function closePopup(popUp) {
+  popUp.classList.remove('popup_opened');
 }
 
 popupEditClose.addEventListener('click', function() {
@@ -70,10 +70,6 @@ function handleFormSubmit (evt) {
 }
 buttonSave.addEventListener('click', handleFormSubmit);
 
-//лайк
-//cardElement.querySelector('.element__heart').addEventListener('click', function (evt) {
-  //evt.target.classList.toggle('element__heart_active');
-//});
 
 //карточки
 const initialCards = [
@@ -110,13 +106,19 @@ function createCard(card) {
   const cardTemplate = document.querySelector('#cardTemplate').content.cloneNode(true);
   const cardTitle = cardTemplate.querySelector('.element__title');
   const cardImage = cardTemplate.querySelector('.element__image');
-  const popupImage = document.querySelector('.popup-img__photo');
-  const popupImgTitle = document.querySelector('.popup-img__title');
-  popupImage.setAttribute('src', card.link);
-  popupImgTitle.textContent = card.name;
-  cardImage.addEventListener('click', function() {
-    openPopup(popupImg);
-  });
+  //const popupImage = document.querySelector('.popup-img__photo');
+  //const popupImgTitle = document.querySelector('.popup-img__title');
+  //popupImage.setAttribute('src', card.link);
+  //popupImgTitle.textContent = card.name;
+  //cardImage.addEventListener('click', function() {
+  //  openPopup(popupImg);
+  //});
+  const buttonLike = cardTemplate.querySelector('.element__heart');
+  buttonLike.addEventListener('click', likeActive);
+
+  
+  const deleteButton = cardTemplate.querySelector('.element__basket');
+  deleteButton.addEventListener('click', deleteCard);
   cardTitle.textContent = card.name;
   cardImage.setAttribute('src', card.link);
   cardImage.setAttribute('alt', card.name);
@@ -125,21 +127,18 @@ function createCard(card) {
 
 initialCards.forEach(createCard);
 
-
-//корзина
-const cardTemplate = document.querySelector('#cardTemplate').content.cloneNode(true);
-const cardElement = cardTemplate.querySelector('.element');
-console.log(cardElement);
-const deleteButton = cardTemplate.querySelector('.element__basket');
-console.log(deleteButton);
-deleteButton.addEventListener('click', deleteCard);
-function deleteCard(evt) {
- const deleteButton = evt.target;
- const element = deleteButton.closest(cardElement);
- console.log(card);
- element.remove();
+//лайк
+function likeActive(evt) {
+  evt.target.classList.toggle('element__heart_active');
 }
 
+
+//корзина
+function deleteCard(evt) {
+const deleteButton = evt.target;
+const element = deleteButton.closest('.element');
+element.remove();
+}
 
 
 //добавление карточки
