@@ -42,8 +42,6 @@ buttonAdd.addEventListener('click', function() {
 });
 
 
-
-
 //функция закрытия попапов
 function closePopup(popUp) {
   popUp.classList.remove('popup_opened');
@@ -106,19 +104,22 @@ function createCard(card) {
   const cardTemplate = document.querySelector('#cardTemplate').content.cloneNode(true);
   const cardTitle = cardTemplate.querySelector('.element__title');
   const cardImage = cardTemplate.querySelector('.element__image');
-  //const popupImage = document.querySelector('.popup-img__photo');
-  //const popupImgTitle = document.querySelector('.popup-img__title');
-  //popupImage.setAttribute('src', card.link);
-  //popupImgTitle.textContent = card.name;
-  //cardImage.addEventListener('click', function() {
-  //  openPopup(popupImg);
-  //});
+  const popupImage = document.querySelector('.popup-img__photo');
+  const popupImgTitle = document.querySelector('.popup-img__title');
+
+  cardImage.addEventListener('click', function(link, name) {
+    popupImage.setAttribute('src', card.link);
+    popupImgTitle.textContent = card.name;
+    openPopup(popupImg);
+  });
+
   const buttonLike = cardTemplate.querySelector('.element__heart');
   buttonLike.addEventListener('click', likeActive);
 
   
   const deleteButton = cardTemplate.querySelector('.element__basket');
   deleteButton.addEventListener('click', deleteCard);
+
   cardTitle.textContent = card.name;
   cardImage.setAttribute('src', card.link);
   cardImage.setAttribute('alt', card.name);
@@ -126,6 +127,7 @@ function createCard(card) {
 }
 
 initialCards.forEach(createCard);
+
 
 //лайк
 function likeActive(evt) {
