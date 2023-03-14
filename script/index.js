@@ -116,19 +116,25 @@ function createCard(card) {
   const buttonLike = cardTemplate.querySelector('.element__heart');
   buttonLike.addEventListener('click', likeActive);
 
-  
   const deleteButton = cardTemplate.querySelector('.element__basket');
   deleteButton.addEventListener('click', deleteCard);
 
   cardTitle.textContent = card.name;
   cardImage.setAttribute('src', card.link);
   cardImage.setAttribute('alt', card.name);
-  cardElements.append(cardTemplate);
+  return cardTemplate;
 }
 
-initialCards.forEach(createCard);
-
-
+initialCards.forEach(function(item) {
+  const card = createCard(item);
+  cardElements.append(card);
+});
+//function renderCard(createCard) {
+  //const cardTemplate = createCard(card);
+  //cardElements.prepend(cardTemplate);
+//}
+//initialCards.forEach(createCard);
+//renderCard();
 //лайк
 function likeActive(evt) {
   evt.target.classList.toggle('element__heart_active');
@@ -159,3 +165,7 @@ function addCard (evt) {
   formAddCard.reset();
 }
 
+//function renderCard(item) {
+  //const userCard = addCard(item);
+  //cardElements.prepend(userCard);
+//}
