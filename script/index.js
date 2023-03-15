@@ -72,17 +72,16 @@ buttonSave.addEventListener('click', handleFormSubmit);
 
 
 //добавление карточек из массива
-
-function createCard(card) {
+function createCard({link, name}) {
   const cardTemplate = document.querySelector('#cardTemplate').content.cloneNode(true);
   const cardTitle = cardTemplate.querySelector('.element__title');
   const cardImage = cardTemplate.querySelector('.element__image');
   const popupImage = document.querySelector('.popup-img__photo');
   const popupImgTitle = document.querySelector('.popup-img__title');
 
-  cardImage.addEventListener('click', function(link, name) {
-    popupImage.setAttribute('src', card.link);
-    popupImgTitle.textContent = card.name;
+  cardImage.addEventListener('click', function() {
+    popupImage.setAttribute('src', link);
+    popupImgTitle.textContent = name;
     openPopup(popupImg);
   });
 
@@ -92,9 +91,9 @@ function createCard(card) {
   const deleteButton = cardTemplate.querySelector('.element__basket');
   deleteButton.addEventListener('click', deleteCard);
 
-  cardTitle.textContent = card.name;
-  cardImage.setAttribute('src', card.link);
-  cardImage.setAttribute('alt', card.name);
+  cardTitle.textContent = name;
+  cardImage.setAttribute('src', link);
+  cardImage.setAttribute('alt', name);
   return cardTemplate;
 }
 
