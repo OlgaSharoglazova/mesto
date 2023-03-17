@@ -23,3 +23,8 @@
     height: 46px;
   }
 }
+
+.popup-add__button:disabled {
+  opacity: 0.2;
+  background-color: #FFFFFF;
+}
