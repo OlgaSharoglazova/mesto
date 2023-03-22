@@ -24,9 +24,11 @@ const cardElements = document.querySelector('.elements');
 const elementTitle = document.querySelector('.element__title');
 const elementImg = document.querySelector('.element__image');
 
-const buttonSave = document.querySelector('.popup__button');
+const buttonSave = document.querySelector('.popup-edit__button');
 const buttonAddCard = document.querySelector('.popup-add__button');
 
+const popupOverlayList = document.querySelectorAll('.popup');
+console.log(popupOverlayList);
 
 // функция открытия попапов
 function openPopup(pop) {
@@ -60,6 +62,25 @@ popupAddClose.addEventListener('click', function() {
 popupImgClose.addEventListener('click', function() {
   closePopup(popupImg);
 });
+
+//закрытие попапа по клику на оверлей доработать
+popupOverlayList.forEach((p) => {
+  p.addEventListener('click', (evt) => {
+    if (!evt.target.classList.contains('container')) {
+      closePopup(popUp);
+    }
+  })
+})
+
+//закрытие попапа на Esc
+popupOverlayList.forEach((p) => {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closePopup(p); 
+    }
+  });
+})
+
 
 //сохранение данных о пользователе
 function handleFormSubmit (evt) {
@@ -128,4 +149,88 @@ function addCard (evt) {
   closePopup(popupAdd);
   formAddCard.reset();
 }
+
+
+
+//валидация
+
+//показать ошибку инпута
+const showInputError = (errorTextElement, validationMessage, activeErrorClass) => {
+  errorTextElement.textContent = validationMessage;
+  errorTextElement.classList.add(activeErrorClass);
+}
+
+//скрыть ошибку
+const hideInputError = (errorTextElement, activeErrorClass) => {
+  errorTextElement.classList.remove(activeErrorClass);
+  errorTextElement.textContent = '';
+}
+//кнопка недоступна
+const disableButton = (submitButton, validSubmitButtonClass) => {
+  submitButton.classList.add(validSubmitButtonClass);
+  submitButton.disabled = true;
+}
+//кнопка доступна
+const enableButton = (submitButton, validSubmitButtonClass) => {
+  submitButton.classList.remove(validSubmitButtonClass);
+  submitButton.disabled = false;
+}
+//проверка инпутов на валидность
+const checkInputValidity = (input, errorClassTemplate, activeErrorClass) => {
+  const errorTextElement = document.querySelector(`${errorClassTemplate}${input.name}`);
+  console.log(errorTextElement);
+  if(!input.validity.valid) {
+    showInputError(errorTextElement, input.validationMessage, activeErrorClass);
+  } else {
+    hideInputError(errorTextElement);
+  }
+}
+
+const hasInvalidInput = (inputList) => {
+  return Array.from(inputList).some((input) => !input.validity.valid);
+}
+//кнопка меняет цвет
+const toggleButtonState = (submitButton, validSubmitButtonClass, inputList) => {
+  if(!hasInvalidInput(inputList)) {
+    enableButton(submitButton, validSubmitButtonClass);
+  } else {
+    disableButton(submitButton, validSubmitButtonClass);
+  }
+}
+
+//навешиваем слушатели
+const setEventListeners = (formList, inputList, errorClassTemplate, activeErrorClass, submitButton, validSubmitButtonClass) => {
+  formList.forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+    });
+  });
+  inputList.forEach((input) => {
+    input.addEventListener('input', (e) => {
+      checkInputValidity(input, errorClassTemplate, activeErrorClass);
+      toggleButtonState(submitButton, validSubmitButtonClass, inputList);
+    });
+  });
+}
+
+// включение валидации вызовом enableValidation
+// все настройки передаются при вызове
+const enableValidation = (config) => {
+  const formList = document.querySelectorAll(config.formSelector);
+  const inputList = document.querySelectorAll(config.inputSelector);
+  const submitButton = document.querySelector(config.submitButtonSelector);
+  setEventListeners(formList, inputList, config.errorClassTemplate, config.activeErrorClass, submitButton, config.validSubmitButtonClass);
+}
+
+
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.input',
+  errorClassTemplate: '.popup__input-error_type_',
+  activeErrorClass: 'popup__input-error',
+  submitButtonSelector: '.popup__button',
+  validSubmitButtonClass: '.popup__button_inactive'
+});
+
+
 

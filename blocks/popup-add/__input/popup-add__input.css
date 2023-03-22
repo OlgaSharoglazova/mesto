@@ -28,3 +28,8 @@
     margin-bottom: 45px;
   }
 }
+
+.popup-add__input:invalid {
+  border-bottom: 1px solid #FF0000;
+  margin-bottom: 0;
+}
