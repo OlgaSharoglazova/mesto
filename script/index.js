@@ -69,7 +69,7 @@ popupOverlayList.forEach((popup) => {
   })
 })
 
-
+//закрытие на Esc
 function closeByEsc(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
@@ -133,7 +133,6 @@ const deleteButton = evt.target;
 const element = deleteButton.closest('.element');
 element.remove();
 }
-
 
 //добавление карточки пользователем
 formAddCard.addEventListener('submit', addCard);
