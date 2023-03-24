@@ -33,7 +33,9 @@ const popupOverlayList = document.querySelectorAll('.popup');
 // функция открытия попапов
 function openPopup(pop) {
   pop.classList.add('popup_opened');
-}
+  document.addEventListener('keydown', closeByEsc);
+  }
+
 
 profileButton.addEventListener('click', function() {
   openPopup(popupEdit);
@@ -49,24 +51,18 @@ buttonAdd.addEventListener('click', function() {
 //функция закрытия попапов
 function closePopup(popUp) {
   popUp.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEsc);
 }
 
-popupEditClose.addEventListener('click', function() {
-  closePopup(popupEdit);
-});
-
-popupAddClose.addEventListener('click', function() {
-  closePopup(popupAdd);
-});
-
-popupImgClose.addEventListener('click', function() {
-  closePopup(popupImg);
+document.querySelectorAll('.popup__close').forEach(button => {
+  const buttonsPopup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(buttonsPopup)); 
 });
 
 
 //закрытие попапа по клику на оверлей 
 popupOverlayList.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
+  popup.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
       closePopup(popup);
     }
@@ -74,14 +70,12 @@ popupOverlayList.forEach((popup) => {
 })
 
 
-//закрытие попапа на Esc
-popupOverlayList.forEach((popup) => {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      closePopup(popup); 
-    }
-  });
-})
+function closeByEsc(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup); 
+  }
+}  
 
 
 //сохранение данных о пользователе
