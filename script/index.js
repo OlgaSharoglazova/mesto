@@ -1,6 +1,5 @@
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
-//const popupImg = document.querySelector('.popup-img');
 
 const buttonAdd = document.querySelector('.profile__add-button');
 const profileButton = document.querySelector('.profile__edit-button');
@@ -19,10 +18,6 @@ const linkCardInput = formAddCard.querySelector('.popup__input-link');
 
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__profession');
-
-// const cardElements = document.querySelector('.elements');
-// const elementTitle = document.querySelector('.element__title');
-// const elementImg = document.querySelector('.element__image');
 
 const buttonSave = document.querySelector('.popup-edit__button');
 const buttonAddCard = document.querySelector('.popup-add__button');
@@ -88,57 +83,9 @@ function handleFormSubmit (evt) {
 buttonSave.addEventListener('click', handleFormSubmit);
 
 
-//добавление карточек из массива
-// function createCard({link, name}) {
-//   const cardTemplate = document.querySelector('#cardTemplate').content.cloneNode(true);
-//   const cardTitle = cardTemplate.querySelector('.element__title');
-//   const cardImage = cardTemplate.querySelector('.element__image');
-//   const popupImage = document.querySelector('.popup-img__photo');
-//   const popupImgTitle = document.querySelector('.popup-img__title');
 
-//   cardImage.addEventListener('click', function() {
-//     popupImage.setAttribute('src', link);
-//     popupImgTitle.textContent = name;
-//     openPopup(popupImg);
-//   });
-
-//   const buttonLike = cardTemplate.querySelector('.element__heart');
-//   buttonLike.addEventListener('click', likeActive);
-
-//   const buttonDelete = cardTemplate.querySelector('.element__basket');
-//   buttonDelete.addEventListener('click', deleteCard);
-
-//   cardTitle.textContent = name;
-//   cardImage.setAttribute('src', link);
-//   cardImage.setAttribute('alt', name);
-//   return cardTemplate;
-// }
-
-
-
-//лайк
-// function likeActive(evt) {
-//   evt.target.classList.toggle('element__heart_active');
-// }
-
-//корзина
-// function deleteCard(evt) {
-// const deleteButton = evt.target;
-// const element = deleteButton.closest('.element');
-// element.remove();
-// }
-
-// вставляем в DOM
-//  function renderCard(item) {
-//    const card = createCard(item);
-//    cardElements.prepend(card);
-//  }
-
-//  initialCards.forEach(renderCard);
-
-//добавление карточки пользователем
 formAddCard.addEventListener('submit', addCard);
-
+//добавляем карточку пользователя
 function addCard (evt) {
   evt.preventDefault();
   const formAddCard = evt.target;
@@ -147,11 +94,23 @@ function addCard (evt) {
   formAddCard.reset();
 }
 
+// вставляем в DOM
+function renderCard(item) {
+  const card = new Card(item, '#cardTemplate', handleCardClick);
+  const cardElement = card.generateCard();
+  document.querySelector('.elements').prepend(cardElement);
+}
+
+
+//открытие попапа с картинкой
 function handleCardClick(name, link) {
   popupImage.src = link;
   popupImgTitle.textContent = name;
-  popupImg.classList.add('popup_opened');
+  openPopup(popupImg);
 }
+
+
+
 
 const items = [
   {
@@ -209,19 +168,18 @@ class Card {
     this._element.remove();
   }
 
-
   _setEventListener() {
-      this._buttonLike.addEventListener('click', () => {
-        this._handleCardLike();
-      });
+    this._buttonLike.addEventListener('click', () => {
+      this._handleCardLike();
+    });
 
-      this._buttonDelete.addEventListener('click', () => {
-        this._handleDelete();
-      });
+    this._buttonDelete.addEventListener('click', () => {
+      this._handleDelete();
+    });
 
-      this._cardImage.addEventListener('click', () => {
-        this._handleCardClick(this._name, this._link);
-      });
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link);
+    });
   }
 
   generateCard() {
@@ -239,14 +197,12 @@ class Card {
 }
 
 items.forEach((item) => {
-  const card = new Card(item, '#cardTemplate');
+  const card = new Card(item, '#cardTemplate', handleCardClick);
   const cardElement = card.generateCard();
-  console.log(cardElement);
   document.querySelector('.elements').prepend(cardElement);
 });
 
 //const cardItem = new Card(data, '#cardTemplate');
-
 
 
 
