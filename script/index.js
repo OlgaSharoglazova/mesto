@@ -1,7 +1,10 @@
-import { Card, popupImg } from './Card.js';
+ import { Card } from './card.js';
+ import { FormValidator } from './FormValidator.js';
+// import { items } from './cards.js';
 
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
+const popupImg = document.querySelector('.popup-img');
 
 const buttonAdd = document.querySelector('.profile__add-button');
 const profileButton = document.querySelector('.profile__edit-button');
@@ -28,6 +31,15 @@ const popupOverlayList = document.querySelectorAll('.popup');
 
 const popupImage = popupImg.querySelector('.popup-img__photo');
 const popupImgTitle = popupImg.querySelector('.popup-img__title');
+
+const config = {
+  formSelector: '.form',
+  inputSelector: '.input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_error',
+  errorClass: 'popup__input-error_active'
+};
 
 
 // функция открытия попапов
@@ -87,14 +99,19 @@ function handleFormSubmit (evt) {
 }
 buttonSave.addEventListener('click', handleFormSubmit);
 
-
+//открытие попапа с картинкой
+export default function handleCardClick(name, link) {
+  popupImage.src = link;
+  popupImgTitle.textContent = name;
+  openPopup(popupImg);
+}
 
 formAddCard.addEventListener('submit', addCard);
 //добавляем карточку пользователя
 function addCard (evt) {
   evt.preventDefault();
   const formAddCard = evt.target;
-  renderCard(data = {name: titleCardInput.value, link: linkCardInput.value});
+  renderCard({name: titleCardInput.value, link: linkCardInput.value});
   closePopup(popupAdd);
   formAddCard.reset();
 }
@@ -106,12 +123,11 @@ function renderCard(item) {
   document.querySelector('.elements').prepend(cardElement);
 }
 
-//открытие попапа с картинкой
-function handleCardClick(name, link) {
-  popupImage.src = link;
-  popupImgTitle.textContent = name;
-  openPopup(popupImg);
-}
+//валидация
+const addValidator = new FormValidator(config, '.popup__form');
+addValidator.enableValidation(config);
+const editValidator = new FormValidator(config, '.popup-add__form');
+editValidator.enableValidation(config);
 
 
 
