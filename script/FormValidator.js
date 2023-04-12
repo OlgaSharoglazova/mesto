@@ -59,14 +59,15 @@ export class FormValidator {
   }
 
   _setEventListeners = () => {
-    const inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
+    const addForm = document.querySelector('.popup__form');
+    const inputList = Array.from(addForm.querySelectorAll(this._config.inputSelector));
     const buttonElement = this._form.querySelector(this._config.submitButtonSelector);
     this._toggleButtonState(inputList, buttonElement);
     this._form.addEventListener('reset', () => {
       this._disableButton(buttonElement);
     });
     inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
+    inputElement.addEventListener('input', () => {
       this._checkInputValidity(inputElement);
       this._toggleButtonState(inputList, buttonElement);
     });
@@ -74,7 +75,6 @@ export class FormValidator {
   }
 
   enableValidation = () => {
-    console.log(this._form);
     const formList = Array.from(document.querySelectorAll(this._config.formSelector));
     formList.forEach(() => {
       this._setEventListeners();

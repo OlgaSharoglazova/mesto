@@ -124,9 +124,9 @@ function renderCard(item) {
 }
 
 //валидация
-const addValidator = new FormValidator(config, '.popup__form');
+const addValidator = new FormValidator(config, popupForm);
 addValidator.enableValidation(config);
-const editValidator = new FormValidator(config, '.popup-add__form');
+const editValidator = new FormValidator(config, formAddCard);
 editValidator.enableValidation(config);
 
 
