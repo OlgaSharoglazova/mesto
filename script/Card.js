@@ -25,7 +25,7 @@ const items = [
   }
 ];
 
-import handleCardClick from "./index.js";
+import handleCardClick from './index.js';
 
 export class Card {
   constructor(data, templateSelector) {
