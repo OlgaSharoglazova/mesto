@@ -1,6 +1,5 @@
  import { Card } from './card.js';
  import { FormValidator } from './FormValidator.js';
-// import { items } from './cards.js';
 
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
@@ -8,10 +7,6 @@ const popupImg = document.querySelector('.popup-img');
 
 const buttonAdd = document.querySelector('.profile__add-button');
 const profileButton = document.querySelector('.profile__edit-button');
-
-const popupEditClose = popupEdit.querySelector('.popup-edit__close');
-const popupAddClose = popupAdd.querySelector('.popup-add__close');
-const popupImgClose = document.querySelector('.popup-img__close');
 
 const popupForm = document.querySelector('.popup__form');
 const nameInput = popupForm.querySelector('.popup__input-name');
@@ -25,7 +20,6 @@ const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__profession');
 
 const buttonSave = document.querySelector('.popup-edit__button');
-const buttonAddCard = document.querySelector('.popup-add__button');
 
 const popupOverlayList = document.querySelectorAll('.popup');
 
@@ -41,13 +35,11 @@ const config = {
   errorClass: 'popup__input-error_active'
 };
 
-
 // функция открытия попапов
 function openPopup(pop) {
   pop.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEsc);
   }
-
 
 profileButton.addEventListener('click', function() {
   openPopup(popupEdit);
@@ -89,7 +81,6 @@ function closeByEsc(evt) {
   }
 }  
 
-
 //сохранение данных о пользователе
 function handleFormSubmit (evt) {
     evt.preventDefault(); 
@@ -125,9 +116,10 @@ function renderCard(item) {
 
 //валидация
 const addValidator = new FormValidator(config, popupForm);
-addValidator.enableValidation(config);
+addValidator.enableValidation();
+
 const editValidator = new FormValidator(config, formAddCard);
-editValidator.enableValidation(config);
+editValidator.enableValidation();
 
 
 
