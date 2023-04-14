@@ -26,6 +26,8 @@ const popupOverlayList = document.querySelectorAll('.popup');
 const popupImage = popupImg.querySelector('.popup-img__photo');
 const popupImgTitle = popupImg.querySelector('.popup-img__title');
 
+const cardsContainer = document.querySelector('.elements');
+
 const config = {
   formSelector: '.form',
   inputSelector: '.input',
@@ -93,6 +95,7 @@ buttonSave.addEventListener('click', handleFormSubmit);
 //открытие попапа с картинкой
 export default function handleCardClick(name, link) {
   popupImage.src = link;
+  popupImage.alt = name;
   popupImgTitle.textContent = name;
   openPopup(popupImg);
 }
@@ -111,7 +114,7 @@ function addCard (evt) {
 function renderCard(item) {
   const card = new Card(item, '#cardTemplate', handleCardClick);
   const cardElement = card.generateCard();
-  document.querySelector('.elements').prepend(cardElement);
+  cardsContainer.prepend(cardElement);
 }
 
 //валидация
