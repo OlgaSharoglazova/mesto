@@ -1,5 +1,3 @@
-import { items } from './cards.js';
-
 import handleCardClick from './index.js';
 
 export class Card {
