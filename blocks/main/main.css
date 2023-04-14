@@ -6,5 +6,5 @@
   align-items: center;
   padding-left: 19px;
   padding-right: 19px;
-  min-height: 70vh;
+  min-height: calc(100vh - 78px - 283px);
 }
