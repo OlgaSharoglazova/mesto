@@ -1,5 +1,6 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
+import { items } from './cards.js';
 
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
@@ -110,12 +111,23 @@ function addCard (evt) {
   formAddCard.reset();
 }
 
-// вставляем в DOM
-function renderCard(item) {
+// функция создания карточки
+function createCard(item) {
   const card = new Card(item, '#cardTemplate', handleCardClick);
-  const cardElement = card.generateCard();
-  cardsContainer.prepend(cardElement);
+  return card.generateCard();
 }
+
+// вставляем новую карточку в DOM
+function renderCard(item) {
+  const cardElement = createCard(item);
+  cardsContainer.prepend(cardElement);
+ }
+
+// вставляем в DOM массив карточек
+items.forEach((item) => {
+  const cardElement = createCard(item);
+  cardsContainer.append(cardElement);
+});
 
 //валидация
 const addValidator = new FormValidator(config, popupForm);

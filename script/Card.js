@@ -53,10 +53,5 @@ export class Card {
   }
 }
 
-items.forEach((item, handleCardClick) => {
-  const card = new Card(item, '#cardTemplate', handleCardClick);
-  const cardElement = card.generateCard();
-  document.querySelector('.elements').prepend(cardElement);
-});
 
 
