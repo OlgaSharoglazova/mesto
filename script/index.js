@@ -9,11 +9,11 @@ const popupImg = document.querySelector('.popup-img');
 const buttonAdd = document.querySelector('.profile__add-button');
 const profileButton = document.querySelector('.profile__edit-button');
 
-const popupForm = document.querySelector('.popup__form');
+const popupForm = document.querySelector('.form-edit');
 const nameInput = popupForm.querySelector('.popup__input-name');
 const jobInput = popupForm.querySelector('.popup__input-job');
 
-const formAddCard = document.querySelector('.popup-add__form');
+const formAddCard = document.querySelector('.form-add');
 const titleCardInput = formAddCard.querySelector('.popup__input-title');
 const linkCardInput = formAddCard.querySelector('.popup__input-link');
 
@@ -24,8 +24,8 @@ const buttonSave = document.querySelector('.popup-edit__button');
 
 const popupOverlayList = document.querySelectorAll('.popup');
 
-const popupImage = popupImg.querySelector('.popup-img__photo');
-const popupImgTitle = popupImg.querySelector('.popup-img__title');
+const popupImage = popupImg.querySelector('.popup__photo');
+const popupImgTitle = popupImg.querySelector('.popup__caption');
 
 const cardsContainer = document.querySelector('.elements');
 

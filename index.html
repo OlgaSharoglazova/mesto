@@ -45,7 +45,7 @@
   <div class="popup popup-edit">
     <div class="popup__container container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="form popup__form" name="form" novalidate>
+      <form class="form popup__form form-edit" name="form" novalidate>
         <input type="text" id="input-name" class="input popup__input popup__input-name" placeholder="Имя" name="name" minlength="2" maxlength="40" required>
         <span class="popup__input-error input-name-error popup__input-error_type_name"></span>
         <input type="text" id="input-job" class="input popup__input popup__input-job" placeholder="О себе" name="job" minlength="2" maxlength="200" required>
@@ -56,12 +56,12 @@
     </div>
   </div>
   <div class="popup popup-add">
-    <div class="popup-add__container container">
-      <h2 class="popup-add__title">Новое место</h2>
-      <form class="form popup-add__form" name="form" novalidate>
+    <div class="popup__container container">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="form popup__form form-add" name="form" novalidate>
         <input type="text" id="input-title" class="input popup__input popup-add__input popup__input-title" placeholder="Название" name="title" minlength="2" maxlength="30" required>
         <span class="popup__input-error input-title-error popup__input-error_type_title "></span>
-        <input type="url" id="input-link" class="input popup-add__input popup__input-link" placeholder="Ссылка на картинку" name="link" required>
+        <input type="url" id="input-link" class="input popup__input popup__input-link" placeholder="Ссылка на картинку" name="link" required>
         <span class="popup__input-error input-link-error popup__input-error_type_link"></span>
         <button class="button popup__button popup-add__button" type="submit">Создать</button>
       </form>
@@ -69,9 +69,9 @@
     </div>
   </div>
   <div class="popup popup-img">
-    <div class="popup-img__container container">
-      <img class="popup-img__photo" src="#">
-      <h2 class="popup-img__title"></h2>
+    <div class="popup__image container">
+      <img class="popup__photo" src="#">
+      <h2 class="popup__caption"></h2>
       <button class="popup__close popup-img__close" type="button" aria-label="закрыть"></button>
     </div>
   </div>
