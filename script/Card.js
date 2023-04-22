@@ -1,10 +1,11 @@
-import handleCardClick from './index.js';
+//import handleCardClick from './index.js';
 
 export class Card {
-  constructor(data, templateSelector) {
+  constructor({data, handleCardClick}, templateSelector) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this.handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -34,7 +35,8 @@ export class Card {
     });
 
     this._cardImage.addEventListener('click', () => {
-      handleCardClick(this._name, this._link);
+      this.handleCardClick(this._name, this._link);
+      
     });
   }
 

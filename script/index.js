@@ -3,14 +3,19 @@ import { FormValidator } from './FormValidator.js';
 import { items } from './cards.js';
 import { Section } from './Section.js';
 import { Popup } from './Popup.js';
-
+import { PopupWithImage } from './PopupWithImage.js';
+import { PopupWithForm } from './PopupWithForm.js';
+import { UserInfo } from './UserInfo.js';
 // const popupEdit = document.querySelector('.popup-edit');
 // const popupAdd = document.querySelector('.popup-add');
 // const popupImg = document.querySelector('.popup-img');
 
-const popupEdit = new Popup('.popup-edit');
-const popupAdd = new Popup('.popup-add');
-const popupImg = new Popup('.popup-img');
+const popupEdit = new PopupWithForm('.popup-edit');
+popupEdit.setEventListeners();
+const popupAdd = new PopupWithForm('.popup-add');
+popupAdd.setEventListeners();
+const popupImg = new PopupWithImage('.popup-img');
+popupImg.setEventListeners();
 
 const buttonAdd = document.querySelector('.profile__add-button');
 const profileButton = document.querySelector('.profile__edit-button');
@@ -101,12 +106,14 @@ const config = {
 // buttonSave.addEventListener('click', handleFormSubmit);
 
 //открытие попапа с картинкой
-export default function handleCardClick(name, link) {
-  popupImage.src = link;
-  popupImage.alt = name;
-  popupImgTitle.textContent = name;
-  open(popupImg);
-}
+// export default function handleCardClick(name, link) {
+//   popupImage.src = link;
+//   popupImage.alt = name;
+//   popupImgTitle.textContent = name;
+//   popupImg.open();
+// }
+
+
 
 formAddCard.addEventListener('submit', addCard);
 //добавляем карточку пользователя
@@ -114,7 +121,7 @@ function addCard (evt) {
   evt.preventDefault();
   const formAddCard = evt.target;
   renderCard({name: titleCardInput.value, link: linkCardInput.value});
-  close(popupAdd);
+  popupAdd.close();
   formAddCard.reset();
 }
 
@@ -125,10 +132,22 @@ function renderCard(cardData) {
  }
 
 //функция создания карточки
- function createCard(item) {
-   const card = new Card(item, '#cardTemplate', handleCardClick);
+ function createCard(data) {
+   const card = new Card({data: data, 
+    handleCardClick: () => {
+    popupImg.open(data);
+   }
+   }, '#cardTemplate'
+   );
    return card.generateCard();
  }
+
+//  function createCard(item) {
+//   const card = new Card(item, '#cardTemplate', () => 
+//     popupImg.open(item)
+//   );
+//   return card.generateCard();
+// }
 
 // вставляем новую карточку в DOM
 // function renderCard(item) {
