@@ -2,6 +2,7 @@
 
 export class Card {
   constructor({data, handleCardClick}, templateSelector) {
+    this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
@@ -34,10 +35,11 @@ export class Card {
       this._handleDelete();
     });
 
-    this._cardImage.addEventListener('click', () => {
-      this.handleCardClick(this._name, this._link);
-      
-    });
+     this._cardImage.addEventListener('click', () => {
+       this.handleCardClick({name: this._name, link: this._link});  
+     });
+
+  
   }
 
   generateCard() {
