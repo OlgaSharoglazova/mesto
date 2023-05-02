@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
   <div class="content">
@@ -14,7 +13,7 @@
     <main class="main">
       <section class="profile">
         <div class="profile__info">
-          <img class="profile__picture" src="./images/Cousteau.png" alt="Жак-Ив Кусто">
+          <img class="profile__picture" src="<%=require('./images/Cousteau.png')%>" alt="Жак-Ив Кусто">
           <div class="profile__title">
             <div class="profile__name-edit">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -75,6 +74,5 @@
       <button class="popup__close popup-img__close" type="button" aria-label="закрыть"></button>
     </div>
   </div>
-  <script type="module" src="./pages/index.js"></script>
 </body>
 </html>
