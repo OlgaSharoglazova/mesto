@@ -7,6 +7,20 @@ import { Popup } from '../components/Popup.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
+import { api } from '../components/Api';
+
+api.getProfile()
+.then(res => {
+  userInfo.setUserInfo({ userName: res.name, userInfo: res.about })
+})
+
+api.getInitialCards()
+.then(cardList => {
+  cardList.forEach(data => {
+    section.addItem
+  })
+})
+
 
 const buttonAdd = document.querySelector('.profile__add-button');
 const profileButton = document.querySelector('.profile__edit-button');
@@ -34,6 +48,7 @@ const popupAdd = new PopupWithForm({ popupSelector: '.popup-add',
 handleFormSubmit: (data) => {
   const cardElement = createCard(data);
   section.addItem(cardElement);
+  popupAdd.close();
   }
 });
 popupAdd.setEventListeners();
