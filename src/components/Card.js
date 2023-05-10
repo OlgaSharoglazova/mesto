@@ -4,6 +4,7 @@ export class Card {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
+    this._likes = data.likes;
     this._templateSelector = templateSelector;
     this.handleCardClick = handleCardClick;
   }
@@ -22,7 +23,13 @@ export class Card {
   }
 
   _handleDelete = () => {
-    this._element = null;;
+    this._element.remove();
+    this._element = null;
+  }
+
+  _setLikes() {
+    const likeCounter = this._element.querySelector('.element__counter');
+    likeCounter.textContent = this._likes.length;
   }
 
   _setEventListener = () => {
@@ -49,6 +56,7 @@ export class Card {
     this._buttonLike = this._element.querySelector('.element__heart');
     this._buttonDelete = this._element.querySelector('.element__basket');
     this._setEventListener();
+    this._setLikes();
     return this._element;
   }
 }
