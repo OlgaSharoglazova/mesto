@@ -34,14 +34,11 @@ class Api {
 
   }  
 
-  addCard(name, link) {
+  addCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        name,
-        link
-      })
+      headers:  this._headers,
+      body: JSON.stringify(data)
     })
     .then(res => res.ok ? res.json() : Promise.reject(res.status))
     .catch(console.log)
