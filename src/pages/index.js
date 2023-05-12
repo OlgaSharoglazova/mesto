@@ -26,9 +26,12 @@ const config = {
   errorClass: 'popup__input-error_active'
 };
 
+let userId;
+
 api.getProfile()
   .then(res => {
     userInfo.setUserInfo({ userName: res.name, userInfo: res.about })
+    userId = res._id
   })
 
 api.getInitialCards()
@@ -47,14 +50,28 @@ popupImg.setEventListeners();
 
 const createCard = (data) => {
   const card = new Card({data: data, 
+   userId: userId,
    handleCardClick: (data) => {
     popupImg.open(data);
+   },
+   handleDeleteClick: (id) => {
+    popupConfirm.open();
+    popupConfirm.setSubmitAction(() => {
+      api.deleteCard(id)
+      .then(() => {
+        card.deleteCard();
+        popupConfirm.close();
+      })
+    });
    }
   }, 
   '#cardTemplate'
   );
   return card.generateCard(); 
 }
+
+const popupConfirm = new PopupWithConfirmation({ popupSelector: '.popup-confirm' });
+popupConfirm.setEventListeners();
 
 const popupAdd = new PopupWithForm({ popupSelector: '.popup-add', 
 handleFormSubmit: (data) => {
