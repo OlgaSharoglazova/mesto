@@ -59,7 +59,7 @@ const createCard = (data) => {
 const popupAdd = new PopupWithForm({ popupSelector: '.popup-add', 
 handleFormSubmit: (data) => {
   api.addCard(data)
-    .then(() => {
+    .then((data) => {
       const newCard = createCard(data);
       section.addItem(newCard);
     })
