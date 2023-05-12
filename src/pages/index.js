@@ -12,6 +12,7 @@ import { PopupWithConfirmation } from '../components/PopupWithConfirmation';
 
 const buttonAdd = document.querySelector('.profile__add-button');
 const profileButton = document.querySelector('.profile__edit-button');
+const avatarButton = document.querySelector('.profile__avatar');
 const popupForm = document.querySelector('.form-edit');
 const nameInput = popupForm.querySelector('.popup__input-name');
 const jobInput = popupForm.querySelector('.popup__input-job');
@@ -43,7 +44,8 @@ api.getInitialCards()
   })
 
 const userInfo = new UserInfo({ userNameSelector: '.profile__name',
-userInfoSelector: '.profile__profession' });
+userInfoSelector: '.profile__profession', userAvatarSelector: '.profile__avatar-img' });
+
 
 const popupImg = new PopupWithImage('.popup-img');
 popupImg.setEventListeners();
@@ -110,6 +112,22 @@ const popupEdit = new PopupWithForm({
   }
 });
 popupEdit.setEventListeners();
+
+const popupAvatar = new PopupWithForm({ 
+  popupSelector: '.popup-avatar', 
+  handleFormSubmit: (data) => {
+    api.changeAvatar(data)
+    .then((res) => {
+      userInfo.setAvatar(res.avatar)
+    })
+    popupAvatar.close();
+  }
+})
+popupAvatar.setEventListeners();
+
+avatarButton.addEventListener('click', () => {
+  popupAvatar.open();
+})
 
 buttonAdd.addEventListener('click', () => {
   popupAdd.open();
