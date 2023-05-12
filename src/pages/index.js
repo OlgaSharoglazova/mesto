@@ -63,8 +63,21 @@ const createCard = (data) => {
         popupConfirm.close();
       })
     });
-   }
-  }, 
+   },
+   handleLikeClick: (id) => {
+    if(card.isLiked(id)) {
+      api.deleteLike(id)
+      .then(res => {
+        card.setLikes(res.likes)
+      })
+    } else {
+      api.addLike(id)
+      .then(res => {
+        card.setLikes(res.likes)
+      })
+    }
+  }
+ }, 
   '#cardTemplate'
   );
   return card.generateCard(); 
