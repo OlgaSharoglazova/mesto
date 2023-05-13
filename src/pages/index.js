@@ -1,9 +1,7 @@
 import './index.css';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
-import { items } from '../utils/cards.js';
 import { Section } from '../components/Section.js';
-import { Popup } from '../components/Popup.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
@@ -17,6 +15,9 @@ const popupForm = document.querySelector('.form-edit');
 const nameInput = popupForm.querySelector('.popup__input-name');
 const jobInput = popupForm.querySelector('.popup__input-job');
 const formAddCard = document.querySelector('.form-add');
+const buttonPopupAvatar = document.querySelector('.popup-avatar__button');
+const buttonPopupEdit = document.querySelector('.popup-edit__button');
+const buttonPopupAdd = document.querySelector('.popup-add__button');
 
 const config = {
   formSelector: '.form',
@@ -32,8 +33,12 @@ let userId;
 api.getProfile()
   .then(res => {
     userInfo.setUserInfo({ userName: res.name, userInfo: res.about })
+    userInfo.setAvatar(res.avatar)
     userId = res._id
   })
+  .catch((err) => {
+    console.log(err); 
+  }); 
 
 api.getInitialCards()
   .then(cardList => {
@@ -42,10 +47,12 @@ api.getInitialCards()
       section.addItem(newCard);
     })
   })
+  .catch((err) => {
+    console.log(err); 
+  }); 
 
 const userInfo = new UserInfo({ userNameSelector: '.profile__name',
 userInfoSelector: '.profile__profession', userAvatarSelector: '.profile__avatar-img' });
-
 
 const popupImg = new PopupWithImage('.popup-img');
 popupImg.setEventListeners();
@@ -64,6 +71,9 @@ const createCard = (data) => {
         card.deleteCard();
         popupConfirm.close();
       })
+      .catch((err) => {
+        console.log(err); 
+      }); 
     });
    },
    handleLikeClick: (id) => {
@@ -72,11 +82,17 @@ const createCard = (data) => {
       .then(res => {
         card.setLikes(res.likes)
       })
+      .catch((err) => {
+        console.log(err); 
+      }); 
     } else {
       api.addLike(id)
       .then(res => {
         card.setLikes(res.likes)
       })
+      .catch((err) => {
+        console.log(err); 
+      }); 
     }
   }
  }, 
@@ -95,6 +111,10 @@ handleFormSubmit: (data) => {
       const newCard = createCard(data);
       section.addItem(newCard);
     })
+    .catch((err) => {
+      console.log(err); 
+    })
+    buttonPopupAdd.textContent = 'Создание...'
     popupAdd.close();
   }
 });
@@ -108,6 +128,10 @@ const popupEdit = new PopupWithForm({
         userInfo.setUserInfo({ userName: data.user, 
           userInfo: data.job });
       })
+      .catch((err) => {
+        console.log(err); 
+      })
+    buttonPopupEdit.textContent = 'Сохранение...'
     popupEdit.close();
   }
 });
@@ -120,6 +144,10 @@ const popupAvatar = new PopupWithForm({
     .then((res) => {
       userInfo.setAvatar(res.avatar)
     })
+    .catch((err) => {
+      console.log(err); 
+    })
+    buttonPopupAvatar.textContent = 'Сохранение...'
     popupAvatar.close();
   }
 })
@@ -150,20 +178,11 @@ const section = new Section({items: [],
 );
 section.renderItems();
 
-//валидация
 const addValidator = new FormValidator(config, popupForm);
 addValidator.enableValidation();
 
 const editValidator = new FormValidator(config, formAddCard);
 editValidator.enableValidation();
-// const section = new Section({items: items,
-//   renderer: (item) => {
-//     const cardElement = createCard(item);
-//     section.addItem(cardElement);
-//   }
-// },
-// '.elements'
-// );
 
 
 
