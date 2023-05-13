@@ -7,26 +7,20 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { api } from '../components/Api';
 import { PopupWithConfirmation } from '../components/PopupWithConfirmation';
-
-const buttonAdd = document.querySelector('.profile__add-button');
-const profileButton = document.querySelector('.profile__edit-button');
-const avatarButton = document.querySelector('.profile__avatar');
-const popupForm = document.querySelector('.form-edit');
-const nameInput = popupForm.querySelector('.popup__input-name');
-const jobInput = popupForm.querySelector('.popup__input-job');
-const formAddCard = document.querySelector('.form-add');
-const buttonPopupAvatar = document.querySelector('.popup-avatar__button');
-const buttonPopupEdit = document.querySelector('.popup-edit__button');
-const buttonPopupAdd = document.querySelector('.popup-add__button');
-
-const config = {
-  formSelector: '.form',
-  inputSelector: '.input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_error',
-  errorClass: 'popup__input-error_active'
-};
+import {
+  config,
+  buttonAdd,
+  profileButton,
+  avatarButton,
+  popupForm,
+  nameInput,
+  jobInput,
+  formAddCard,
+  buttonPopupAvatar,
+  buttonPopupEdit,
+  buttonPopupAdd,
+  formPopupAvatar
+} from '../utils/constants';
 
 let userId;
 
@@ -44,12 +38,13 @@ api.getInitialCards()
   .then(cardList => {
     cardList.forEach(data => {
       const newCard = createCard(data);
-      section.addItem(newCard);
+      section.setItem(newCard);
     })
   })
   .catch((err) => {
     console.log(err); 
   }); 
+
 
 const userInfo = new UserInfo({ userNameSelector: '.profile__name',
 userInfoSelector: '.profile__profession', userAvatarSelector: '.profile__avatar-img' });
@@ -184,6 +179,8 @@ addValidator.enableValidation();
 const editValidator = new FormValidator(config, formAddCard);
 editValidator.enableValidation();
 
+const avatarValidator = new FormValidator(config, formPopupAvatar);
+avatarValidator.enableValidation();
 
 
 
