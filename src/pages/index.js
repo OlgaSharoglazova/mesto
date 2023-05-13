@@ -24,7 +24,7 @@ import {
 
 let userId;
 
-  Promise.all([api.getProfile(), api.getInitialCards()])
+Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([res, cardList]) => {
     userInfo.setUserInfo({ userName: res.name, userInfo: res.about })
     userInfo.setAvatar(res.avatar)
@@ -93,16 +93,19 @@ popupConfirm.setEventListeners();
 
 const popupAdd = new PopupWithForm({ popupSelector: '.popup-add', 
 handleFormSubmit: (data) => {
+  buttonPopupAdd.textContent = 'Создание...';
   api.addCard(data)
     .then((data) => {
       const newCard = createCard(data);
       section.addItem(newCard);
+      popupAdd.close();
     })
     .catch((err) => {
       console.log(err); 
     })
-    buttonPopupAdd.textContent = 'Создание...'
-    popupAdd.close();
+    .finally(() => {
+      buttonPopupAdd.textContent = 'Создать';
+    })
   }
 });
 popupAdd.setEventListeners();
@@ -110,16 +113,19 @@ popupAdd.setEventListeners();
 const popupEdit = new PopupWithForm({ 
   popupSelector: '.popup-edit',
   handleFormSubmit: (data) => {
+    buttonPopupEdit.textContent = 'Сохранение...';
     api.editProfile(data.user, data.job)
       .then(() => {
         userInfo.setUserInfo({ userName: data.user, 
           userInfo: data.job });
+        popupEdit.close();
       })
       .catch((err) => {
         console.log(err); 
       })
-    buttonPopupEdit.textContent = 'Сохранение...'
-    popupEdit.close();
+      .finally(() => {
+        buttonPopupEdit.textContent = 'Сохранить';
+      })
   }
 });
 popupEdit.setEventListeners();
@@ -127,15 +133,18 @@ popupEdit.setEventListeners();
 const popupAvatar = new PopupWithForm({ 
   popupSelector: '.popup-avatar', 
   handleFormSubmit: (data) => {
+    buttonPopupAvatar.textContent = 'Сохранение...';
     api.changeAvatar(data)
     .then((res) => {
       userInfo.setAvatar(res.avatar)
+      popupAvatar.close();
     })
     .catch((err) => {
       console.log(err); 
     })
-    buttonPopupAvatar.textContent = 'Сохранение...'
-    popupAvatar.close();
+    .finally(() => {
+      buttonPopupAvatar.textContent = 'Сохранить';
+    })
   }
 })
 popupAvatar.setEventListeners();
