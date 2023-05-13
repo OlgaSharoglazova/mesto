@@ -30,6 +30,5 @@
   },
   "dependencies": {
     "core-js": "^3.30.2"
-  },
-  "homepage": "https://olgasharoglazova.github.io/mesto/"
+  }
 }
