@@ -24,27 +24,19 @@ import {
 
 let userId;
 
-api.getProfile()
-  .then(res => {
+  Promise.all([api.getProfile(), api.getInitialCards()])
+  .then(([res, cardList]) => {
     userInfo.setUserInfo({ userName: res.name, userInfo: res.about })
     userInfo.setAvatar(res.avatar)
     userId = res._id
-  })
-  .catch((err) => {
-    console.log(err); 
-  }); 
-
-api.getInitialCards()
-  .then(cardList => {
     cardList.forEach(data => {
       const newCard = createCard(data);
       section.setItem(newCard);
     })
   })
   .catch((err) => {
-    console.log(err); 
-  }); 
-
+    console.log(err);
+  });
 
 const userInfo = new UserInfo({ userNameSelector: '.profile__name',
 userInfoSelector: '.profile__profession', userAvatarSelector: '.profile__avatar-img' });
